@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "0263fb2f-d44d-4c4b-a4fa-f562d8716e9a",
+		"name": "NEWMAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4318517"
+	},
+	"item": [
+		{
+			"name": "PETICION1 newman",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://postman-echo.com/get"
+			},
+			"response": []
+		},
+		{
+			"name": "PETICION2newman",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{urlecho}}/get"
+			},
+			"response": []
+		},
+		{
+			"name": "PETICION3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{urlecho}}/gets"
+			},
+			"response": []
+		},
+		{
+			"name": "PETICION4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{urlecho}}/gets"
+			},
+			"response": []
+		}
+	]
+}

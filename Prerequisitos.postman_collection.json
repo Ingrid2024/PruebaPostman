@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "ef162b58-b779-4a24-8c9b-0e08bb0870f1",
+		"name": "Prerequisitos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4318517"
+	},
+	"item": [
+		{
+			"name": "CON PRE-REQUISITOS",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const edad=Math.floor((Math.random()*100)+1);\r",
+							"\r",
+							"//console.log(edad);\r",
+							"\r",
+							"pm.globals.set(\"edadaleatorio\", edad);\r",
+							"\r",
+							"let password= Math.random().toString(36).substr(2,5)//genera cadena de texto aleatorio\r",
+							"//console.log(\"random\", r); \r",
+							"\r",
+							"pm.globals.set(\"passwordaleatorio\", password);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"comprobar variable edad aleatorio\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.edad).to.eql(pm.globals.get(\"edadaleatorio\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nombre\":\"Ingrid\",\r\n\"Apellido\": \"Martinez\",\r\n\"edad\":{{edadaleatorio}},\r\n\"cantidad\":{{$randomInt}},///genera numero random \r\n\"codigo\": \"{{$guid}}\" ,//genera codigo alfanumerico\r\n\"password\":\" {{passwordaleatorio}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{urlecho}}/post"
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar petición dentro de un pre-requisito",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const edad=Math.floor((Math.random()*100)+1);\r",
+							"\r",
+							"//console.log(edad);\r",
+							"\r",
+							"pm.globals.set(\"edadaleatorio\", edad);\r",
+							"\r",
+							"let password= Math.random().toString(36).substr(2,5)//genera clave aleaorio\r",
+							"//console.log(\"random\", r); \r",
+							"\r",
+							"pm.globals.set(\"passwordaleatorio\", password);\r",
+							"\r",
+							"try {\r",
+							"    const response = await pm.sendRequest({\r",
+							"        url: \"https://postman-echo.com/ip\",\r",
+							"        method: \"GET\"\r",
+							"    });\r",
+							"\r",
+							"    console.log(response.json());\r",
+							"} catch (err) {\r",
+							"    console.error(err);\r",
+							"  var jsonData =response.json();\r",
+							"    pm.globals.get(\"ip\",jsonData.ip);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"comprobar variable edad aleatorio\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.edad).to.eql(pm.globals.get(\"edadaleatorio\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nombre\":\"Ingrid\",\r\n\"Apellido\": \"Martinez\",\r\n\"edad\":{{edadaleatorio}},\r\n\"cantidad\":{{$randomInt}},///genera numero random \r\n\"codigo\": \"{{$guid}}\" ,//genera codigo alfanumerico\r\n\"password\":\" {{passwordaleatorio}}\",\r\n\"ip\":\"{{ip}}\",\r\n\"fecha\":\"{{$guid}}\" //hacer del capitulo 42\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{urlecho}}/post"
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar petición dentro de un pre-requisito error",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const edad=Math.floor((Math.random()*100)+1);\r",
+							"\r",
+							"//console.log(edad);\r",
+							"\r",
+							"pm.globals.set(\"edadaleatorio\", edad);\r",
+							"\r",
+							"let password= Math.random().toString(36).substr(2,5)//genera clave aleaorio\r",
+							"//console.log(\"random\", r); \r",
+							"\r",
+							"pm.globals.set(\"passwordaleatorio\", password);\r",
+							"\r",
+							"try {\r",
+							"    const response = await pm.sendRequest({\r",
+							"        url: \"https://postman-echo.com/ip\",\r",
+							"        method: \"GET\"\r",
+							"    });\r",
+							"\r",
+							"    console.log(response.json());\r",
+							"} catch (err) {\r",
+							"    console.error(err);\r",
+							"  var jsonData =response.json();\r",
+							"    pm.globals.get(\"ip\",jsonData.ip);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"comprobar variable edad aleatorio\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.edad).to.eql(pm.globals.get(\"edadaleatorio\"));\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"comprobar variable nombre aleatorio\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.nombre).to.eql(pm.globals.get(\"edadaleatorio\"));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nombre\":\"Ingrid\",\r\n\"Apellido\": \"Martinez\",\r\n\"edad\":{{edadaleatorio}},\r\n\"cantidad\":{{$randomInt}},///genera numero random \r\n\"codigo\": \"{{$guid}}\" ,//genera codigo alfanumerico\r\n\"password\":\" {{passwordaleatorio}}\",\r\n\"ip\":\"{{ip}}\",\r\n\"fecha\":\"{{$guid}}\" //hacer del capitulo 42\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{urlecho}}/post"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
