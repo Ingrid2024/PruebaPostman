@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "9cc7bf08-b327-4bc5-825e-469e7bd335c9",
+		"name": "POKEMON",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4318517"
+	},
+	"item": [
+		{
+			"name": "POKEMON REQUEST",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"urlpokemon\");\r",
+							"\r",
+							"//pm.response.to.have.header(\"Connection\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"// CONTROLAMOS EL status\r",
+							"pm.test(\"CONTROLAMOS EL STATUS SEA OK\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// CONTROLAMOS EL TIEMPO DE RESPUESTA\r",
+							"pm.test(\"CONTROLAMOS EL TIEMPO DE RESPUESTA SEA MENOR A 300\", function() {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"// CONTROLAMOS EL HEADER\r",
+							"pm.test(\"CONTROLAMOS EL HEADER\", function() {\r",
+							"    pm.response.to.have.header(\"Cache-Control\");\r",
+							"});\r",
+							"\r",
+							"// CONTROLAMOS EL HEADER LA FECHA DATE EXISTA\r",
+							"pm.test(\"CONTROLAMOS EL HEADER/DATE\", function() {\r",
+							"    pm.expect(pm.response.headers.get(\"Date\")).to.exist; \r",
+							"});\r",
+							"\r",
+							"pm.test(\"EXPRESION REGULAR VALIDAMOS EL FORMATO DATE FECHA\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Date\")).to.match(/\\w+,\\s\\d+\\s\\w+\\s\\d+\\s\\d+:\\d+:\\d+\\s\\w+/); // EXPRESION REGULAR\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"CONTROLAMOS EL  Content Type\", function() {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"// CONTROLAMOS EL BODY\r",
+							"pm.test(\"CONTROLAMOS EL  CONTENIDO DE NAME TENGA LA PALABRA BUL\", function() {\r",
+							"    pm.expect(jsonData.results[0].name).to.match(/bul/); //que contenga bul\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CONTROLAMOS EL  CONTENIDO DE URL\", function() {\r",
+							"    pm.expect(jsonData.results[0].url).to.include('https://pokeapi.co/api/v2/pokemon/1/'); //que contenga la URL\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CONTROLAMOS EL  CONTENIDO DE COUNT SEA IGUAL A UN VALOR\", function() {\r",
+							"    pm.expect(jsonData.count).to.eql(1302);\r",
+							"});\r",
+							"\r",
+							"// Removed incorrect test and added a valid test for COUNT field\r",
+							"\r",
+							"\r",
+							"pm.test(\"EXPRESION REGULAR VALIDAMOS EL CAMPO COUNT\", function () {\r",
+							"    pm.expect(jsonData.count).to.match(/^\\d+$/); // EXPRESION REGULAR\r",
+							"\r",
+							"    console.log\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{urlpokemon}}"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "null",
+			"value": ""
+		}
+	]
+}
